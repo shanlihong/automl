@@ -97,7 +97,7 @@ def read_bulk_by_name(item_name, item_type, project_path = None):
 
 def hglue(*dfs):
     """horizontally stack all the df in dfs
-    example: xy_df = hglue([X, y]) 
+    example: xy_df = hglue(X, y) 
     """
     return pd.concat(dfs, axis = 1)
 
@@ -378,7 +378,7 @@ def transform_on(model_name, data_name, transformed_data_name, project_path = No
     #predicted_data_bulk.update(yhat, join = 'left')
     #predicted_data_bulk = hglue([data_bulk, yhat])
     ## excluding original input features
-    predicted_data_bulk = hglue([yhat, data_bulk.loc[:, output_features]])
+    predicted_data_bulk = hglue(yhat, data_bulk.loc[:, output_features])
     predicted_data_meta = data_meta
     predicted_data_meta.update({'name': transformed_data_name, 'input_features': transformed_features})
     write_data(project_path = project_path, data_meta = predicted_data_meta, data_bulk = predicted_data_bulk)
